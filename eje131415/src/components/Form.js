@@ -2,25 +2,26 @@ import React from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-const loginSchema = Yup.object().shape(
-  ~{
+const loginSchema = Yup.object().shape({
     email: Yup.string()
       .email('Invalid format')
       .required('Email is requireed'),
     password: Yup.string().required('Password is required')
-  }
-)
+  })
 
-const Forms = () => {
+const Forms = ({ onSubmit }) => {
+
+  const formInfo = {
+    email: '',
+    password: ''
+  };
+
   return (
     
     <div>
     <h1>Sign Up</h1>
     <Formik
-      initialValues={{
-        email: '',
-        password: '',
-      }}
+      initialValues={formInfo}
       onSubmit={async (values) => {
         await new Promise((r) => setTimeout(r, 500));
         alert(JSON.stringify(values, null, 2));
@@ -31,15 +32,15 @@ const Forms = () => {
 
 {({       
           
-          errors, 
-          touched,
-          values,
-          Submitting,
-          handleChange,
-          handleBlur,
-          isSubmitting }) => (
+    errors, 
+    touched,
+    values,
+    Submitting,
+    handleChange,
+    handleBlur,
+    isSubmitting }) => (
 
- 
+
           <Form>
         
         <label htmlFor="email">Email</label>
@@ -84,6 +85,4 @@ const Forms = () => {
 
     }
 
-export default Forms
-
-
+export default Forms;
